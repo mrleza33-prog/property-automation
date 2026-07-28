@@ -4,19 +4,29 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test:bdd": "cucumber-js features/**/*.feature"
+    "test": "cucumber-js",
+    "test:search": "cucumber-js --tags \"@search\"",
+    "test:property": "cucumber-js --tags \"@propertySelection\"",
+    "test:contacts": "cucumber-js --tags \"@createContact\"",
+    "test:edit-contact": "cucumber-js --tags \"@editContact\"",
+    "test:e2e": "cmd /c \"cucumber-js --tags @e2e & node generate-report.js\"",
+    "report": "node generate-report.js",
+    "test:e2e:report": "cmd /c \"npm run test:e2e & npm run report\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@cucumber/cucumber": "^12.5.0",
+    "@cucumber/cucumber": "^12.8.1",
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.3",
     "dotenv": "^17.2.3",
     "expect": "^30.2.0",
+    "multiple-cucumber-html-reporter": "^3.10.0",
+    "prettier": "^3.9.6",
+    "rimraf": "^6.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2",
+    "why-is-node-running": "^3.2.2"
   }
 }

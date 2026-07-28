@@ -1,21 +1,24 @@
-import { Browser, BrowserContext, Page, chromium } from "@playwright/test";
-import { setWorldConstructor } from "@cucumber/cucumber";
+// features/support/world.ts
+import { Browser, BrowserContext, Page, APIRequestContext } from "playwright";
+import { IWorldOptions, setWorldConstructor, World } from "@cucumber/cucumber";
+import { DashboardPage } from "../../src/pages/dashboard.page";
+import { ContactPage } from "../../src/pages/contact.page";
 
-export class CustomWorld {
+export class CustomWorld extends World {
   browser!: Browser;
   context!: BrowserContext;
   page!: Page;
 
-  async init() {
-    this.browser = await chromium.launch({ headless: true });
-    this.context = await this.browser.newContext();
-    this.page = await this.context.newPage();
-  }
+  api?: APIRequestContext;
+  dashboard!: DashboardPage;
+  contactPage!: ContactPage;
 
-  async cleanup() {
-    await this.page?.close();
-    await this.context?.close();
-    await this.browser?.close();
+  // ADD THESE TWO LINES
+  currentRole!: string;
+  createdContactEmail!: string;
+
+  constructor(options: IWorldOptions) {
+    super(options);
   }
 }
 

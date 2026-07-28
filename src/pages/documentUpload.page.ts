@@ -1,15 +1,26 @@
-import { Page } from "playwright";
+import { Page, expect } from "@playwright/test";
 
 export class DocumentUploadPage {
   constructor(private page: Page) {}
 
   async open() {
     await this.page.goto("/documents/upload");
+    await expect(
+      this.page.locator("input[type='file']")
+    ).toBeVisible();
   }
 
   async uploadFile(filePath: string) {
-    const fileInput = this.page.locator('input[type="file"]');
+    const fileInput = this.page.locator("input[type='file']");
     await fileInput.setInputFiles(filePath);
-    await this.page.click("button:has-text('Upload')");
+
+    const uploadButton = this.page.getByRole("button", { name: "Upload" });
+    await uploadButton.click();
+  }
+
+  async verifyUploadSuccess() {
+    await expect(
+      this.page.locator("text=Upload successful")
+    ).toBeVisible({ timeout: 10000 });
   }
 }

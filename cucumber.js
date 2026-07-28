@@ -1,6 +1,5 @@
 module.exports = {
   default: {
-    paths: ["features/**/*.feature"],
     require: [
       "features/step-definitions/**/*.ts",
       "features/support/**/*.ts"
@@ -8,8 +7,10 @@ module.exports = {
     requireModule: ["ts-node/register"],
     format: [
       "progress",
-      "html:reports/cucumber-report.html"
+      "html:reports/cucumber-report.html",
+      "json:reports/cucumber.json",
     ],
+    
     timeout: 60000,
     publishQuiet: true
   }
