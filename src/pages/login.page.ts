@@ -13,11 +13,11 @@ export class LoginPage {
     async login(username: string, password: string) {
         const usernameField = this.page.locator("#username");
 
-        // If login form not visible, assume already logged in
-        if (!(await usernameField.isVisible().catch(() => false))) {
-            console.log("🔐 Already authenticated");
-            return;
-        }
+        // Wait until the username field is actually visible
+        await usernameField.waitFor({
+            state: "visible",
+            timeout: 30000,
+        });
 
         await usernameField.fill(username);
         await this.page.locator("#password").fill(password);
