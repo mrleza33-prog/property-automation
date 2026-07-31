@@ -4,10 +4,19 @@ export class LoginPage {
     constructor(private page: Page) {}
 
     async open() {
-        await this.page.goto(process.env.BASE_URL!, {
-            waitUntil: "load",
-            timeout: 60_000,
-        });
+        try {
+            await this.page.goto(process.env.BASE_URL!, {
+                waitUntil: "load",
+                timeout: 60_000,
+            });
+        } catch (error) {
+            console.log("⚠️ First navigation failed. Retrying once...");
+
+            await this.page.goto(process.env.BASE_URL!, {
+                waitUntil: "load",
+                timeout: 60_000,
+            });
+        }
     }
 
     async login(username: string, password: string) {
