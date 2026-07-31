@@ -12,8 +12,6 @@ const delay = (ms: number): Promise<void> => new Promise((resolve) => setTimeout
 Before({ timeout: 60_000 }, async function (this: CustomWorld) {
     console.log("🚀 Before hook start");
 
-    await this.page.waitForTimeout(2000);
-
     console.log("🌐 Navigating to login page...");
     await this.page.goto(process.env.BASE_URL!, {
         waitUntil: "domcontentloaded",
@@ -33,6 +31,8 @@ Before({ timeout: 60_000 }, async function (this: CustomWorld) {
     await this.context.clearCookies();
 
     this.page = await this.context.newPage();
+
+    await this.page.waitForTimeout(2000);
 
     console.log("🌐 Navigating to login page...");
 
