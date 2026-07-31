@@ -12,11 +12,6 @@ const delay = (ms: number): Promise<void> => new Promise((resolve) => setTimeout
 Before({ timeout: 60_000 }, async function (this: CustomWorld) {
     console.log("🚀 Before hook start");
 
-    console.log("🌐 Navigating to login page...");
-    await this.page.goto(process.env.BASE_URL!, {
-        waitUntil: "domcontentloaded",
-    });
-
     // Launch browser
     this.browser = await chromium.launch({
         headless: false,
