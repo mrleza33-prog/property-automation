@@ -10,7 +10,7 @@ import "dotenv/config";
 const delay = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 Before({ timeout: 60_000 }, async function (this: CustomWorld) {
-    console.log("🚀 Before hook start");
+    console.log(" Before hook start");
 
     // Launch browser
     this.browser = await chromium.launch({
@@ -29,7 +29,7 @@ Before({ timeout: 60_000 }, async function (this: CustomWorld) {
 
     await this.page.waitForTimeout(2000);
 
-    console.log("🌐 Navigating to login page...");
+    console.log(" Navigating to login page...");
 
     await this.page.goto(process.env.BASE_URL!, {
         waitUntil: "domcontentloaded",
@@ -43,14 +43,14 @@ Before({ timeout: 60_000 }, async function (this: CustomWorld) {
         document.body.style.zoom = "80%";
     });
 
-    console.log("🟢 Login page ready");
+    console.log(" Login page ready");
 
     this.dashboard = new DashboardPage(this.page);
     this.contactPage = new ContactPage(this.page);
 });
 
 After({ timeout: 60_000 }, async function (this: CustomWorld, scenario) {
-    console.log("🧹 Cleaning up...");
+    console.log(" Cleaning up...");
 
     try {
         if (scenario.result?.status === "FAILED" && this.page && !this.page.isClosed()) {
